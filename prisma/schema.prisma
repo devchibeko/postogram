@@ -20,4 +20,22 @@ model User {
   fristName String
   lastName  String
   age       Int
+  posts     Post[]
+}
+
+model Post {
+  id       Int  @id @default(autoincrement())
+  author   User @relation(fields: [authorId], references: [id])
+  authorId Int
+
+  media     String
+  mediaType MediaType
+
+  title       String
+  description String
+}
+
+enum MediaType {
+  PHOTO
+  VIDEO
 }
