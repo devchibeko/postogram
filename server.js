@@ -4,6 +4,7 @@ const express = require("express")
 const cors = require("cors")
 const authRoutes = require('./routes/auth.routes.js')
 const verficationRoutes = require('./routes/verication.routes.js')
+const uploadRoutes = require('./routes/upload.routes.js')
 
 const app = express()
 
@@ -12,6 +13,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(authRoutes)
 app.use(verficationRoutes)
+app.use(uploadRoutes)
 
 
 

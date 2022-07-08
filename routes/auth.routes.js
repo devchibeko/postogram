@@ -1,5 +1,6 @@
 const { Router } = require("express")
 const { createUser, findUser } = require('../services/user.service.js')
+const multerUpload = require('../middlewares/multer-upload.js')
 const md5 = require('md5')
 
 const router = Router()
@@ -33,8 +34,11 @@ router.post("/login", async (req, res) => {
 
 
 
-router.post("/register", async (req, res) => {
+router.post("/register", multerUpload.single('avatar'),async (req, res) => {
     const { username, password, fristName, lastName, age } = req.body
+
+    const avatar = req.file.filename
+
     const existUser = await findUser(username)
 
     if (existUser) {
@@ -44,10 +48,10 @@ router.post("/register", async (req, res) => {
     }
     else {
         const token = md5(`${username}':'${password}`)
-        const newUser = await createUser(username, password, fristName, lastName, age, token)
+        await createUser(username, password, fristName, lastName, +age, avatar, token)
 
         res.status(201).json({
-            message: "Create!",
+            message: "Created!",
             user: {
                 username,
                 token

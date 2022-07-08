@@ -5,7 +5,7 @@ const router = Router()
 
 router.get('/verify', authentification, async (req, res) => {
    
-  const { username, fristName, lastName, age } = res.locals.user
+  const { username, fristName, lastName, age, avatar } = res.locals.user
 
   res.json({
     message: 'Successfuly authentificated',
@@ -13,6 +13,7 @@ router.get('/verify', authentification, async (req, res) => {
       username,
       fristName,
       lastName,
+      avatar,
       age
     }
   })
